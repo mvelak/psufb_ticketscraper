@@ -1,6 +1,6 @@
 import json
 
-
+database_file = 'listings.txt'
 def serialize_listing(listing):
     return json.dumps(listing, sort_keys=True, indent=4)
 
@@ -13,7 +13,7 @@ def _read_database():
     lines = []
 
     try:
-        with open('listings.txt', 'r') as f:
+        with open(database_file, 'r') as f:
             for line in f.readlines():      # array of all lines
                 lines.append(line.strip())
     except FileNotFoundError:
@@ -45,5 +45,5 @@ def check_for_unsaved_listings(listings):
 def overwrite_saved_listings(listings):
     listings = map(lambda l: serialize_listing(l) + '\n', listings)
 
-    with open('listings.txt', 'w') as f:
+    with open(database_file, 'w') as f:
         f.writelines(listings)
